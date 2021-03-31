@@ -1,13 +1,11 @@
 package com.tdgames.service;
 
 import java.util.List;
-//import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-//import org.springframework.web.servlet.function.EntityResponse;
 
 import com.tdgames.entity.Productos;
 import com.tdgames.repository.ProductosRepository;
@@ -29,5 +27,19 @@ public class ProductosServicios {
 	
 	public List<Productos> showProductos(){
 		return repository.findAll();
+	}
+	
+	public String deleteProducto(Integer id) {
+		if(repository.findById(id)!=null) {
+			repository.deleteById(id);
+			return ""+HttpStatus.OK;
+		}else {
+			return ""+HttpStatus.BAD_REQUEST;
+		}
+	}
+	
+	public String updateProducto(Productos producto) {
+		repository.save(producto);
+		return ""+HttpStatus.OK;
 	}
 }
